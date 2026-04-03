@@ -1,0 +1,1089 @@
+{
+  "namespace": "my.projectmanager",
+  "definitions": {
+    "my.projectmanager.Projects": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "budget": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        },
+        "requiredRoles": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.projectmanager.ProjectRoles",
+          "on": [
+            {
+              "ref": [
+                "requiredRoles",
+                "project"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "allocations": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.projectmanager.Allocations",
+          "on": [
+            {
+              "ref": [
+                "allocations",
+                "project"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "my.projectmanager.ProjectRoles": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "count": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "my.projectmanager.Resources": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "type": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "salary": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "officeCost": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "overheadCost": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "hourlyRate": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "roles": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.projectmanager.ResourceRoles",
+          "on": [
+            {
+              "ref": [
+                "roles",
+                "resource"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "allocations": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.projectmanager.Allocations",
+          "on": [
+            {
+              "ref": [
+                "allocations",
+                "resource"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "my.projectmanager.ResourceRoles": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "my.projectmanager.Allocations": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "hours": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "my.projectmanager.Templates": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 30
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "phases": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.projectmanager.TemplatePhases",
+          "on": [
+            {
+              "ref": [
+                "phases",
+                "template"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "my.projectmanager.TemplatePhases": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "template": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Templates",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "sequence": {
+          "type": "cds.Integer"
+        },
+        "tasks": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.projectmanager.TemplateTasks",
+          "on": [
+            {
+              "ref": [
+                "tasks",
+                "phase"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "my.projectmanager.TemplateTasks": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "phase": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.TemplatePhases",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "defaultHours": {
+          "type": "cds.Integer"
+        },
+        "sequence": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "my.projectmanager.WBSTasks": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "phaseName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "hours": {
+          "type": "cds.Integer"
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Not Started"
+          }
+        },
+        "sequence": {
+          "type": "cds.Integer"
+        },
+        "predecessor": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.WBSTasks",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProjectManagerService": {
+      "@source": "srv/project-manager-service.cds",
+      "kind": "service",
+      "@path": "/browse"
+    },
+    "ProjectManagerService.Projects": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.Projects"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "budget": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        },
+        "requiredRoles": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ProjectManagerService.ProjectRoles",
+          "on": [
+            {
+              "ref": [
+                "requiredRoles",
+                "project"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "allocations": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ProjectManagerService.Allocations",
+          "on": [
+            {
+              "ref": [
+                "allocations",
+                "project"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProjectManagerService.Resources": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.Resources"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "type": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "salary": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "officeCost": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "overheadCost": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "hourlyRate": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "roles": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ProjectManagerService.ResourceRoles",
+          "on": [
+            {
+              "ref": [
+                "roles",
+                "resource"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "allocations": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ProjectManagerService.Allocations",
+          "on": [
+            {
+              "ref": [
+                "allocations",
+                "resource"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProjectManagerService.Allocations": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.Allocations"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "hours": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "ProjectManagerService.ProjectRoles": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.ProjectRoles"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "count": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "ProjectManagerService.ResourceRoles": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.ResourceRoles"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "ProjectManagerService.Analytics_Cost_Consumption": {
+      "kind": "entity",
+      "@readonly": true,
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "ProjectManagerService.Allocations"
+            ]
+          },
+          "columns": [
+            {
+              "key": true,
+              "ref": [
+                "project",
+                "ID"
+              ],
+              "as": "projectId"
+            },
+            {
+              "ref": [
+                "project",
+                "name"
+              ],
+              "as": "projectName"
+            },
+            {
+              "ref": [
+                "project",
+                "budget"
+              ],
+              "as": "projectBudget"
+            },
+            {
+              "xpr": [
+                {
+                  "func": "sum",
+                  "args": [
+                    {
+                      "xpr": [
+                        {
+                          "ref": [
+                            "hours"
+                          ]
+                        },
+                        "*",
+                        {
+                          "ref": [
+                            "resource",
+                            "hourlyRate"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "cast": {
+                    "type": "cds.Decimal",
+                    "precision": 15,
+                    "scale": 2
+                  }
+                }
+              ],
+              "as": "consumedCost"
+            }
+          ],
+          "groupBy": [
+            {
+              "ref": [
+                "project",
+                "ID"
+              ]
+            },
+            {
+              "ref": [
+                "project",
+                "name"
+              ]
+            },
+            {
+              "ref": [
+                "project",
+                "budget"
+              ]
+            }
+          ]
+        }
+      },
+      "elements": {
+        "projectId": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "projectName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "projectBudget": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "consumedCost": {
+          "@Core.Computed": true,
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2,
+          "$calc": true
+        }
+      }
+    },
+    "ProjectManagerService.Templates": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.Templates"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 30
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "phases": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ProjectManagerService.TemplatePhases",
+          "on": [
+            {
+              "ref": [
+                "phases",
+                "template"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProjectManagerService.TemplatePhases": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.TemplatePhases"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "template": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Templates",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "sequence": {
+          "type": "cds.Integer"
+        },
+        "tasks": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ProjectManagerService.TemplateTasks",
+          "on": [
+            {
+              "ref": [
+                "tasks",
+                "phase"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProjectManagerService.TemplateTasks": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.TemplateTasks"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "phase": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.TemplatePhases",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "defaultHours": {
+          "type": "cds.Integer"
+        },
+        "sequence": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "ProjectManagerService.WBSTasks": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.WBSTasks"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "phaseName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "role": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "hours": {
+          "type": "cds.Integer"
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Not Started"
+          }
+        },
+        "sequence": {
+          "type": "cds.Integer"
+        },
+        "predecessor": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.WBSTasks",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "cds.outbox.Messages": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "timestamp": {
+          "type": "cds.Timestamp"
+        },
+        "target": {
+          "type": "cds.String"
+        },
+        "msg": {
+          "type": "cds.LargeString"
+        },
+        "attempts": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        },
+        "partition": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        },
+        "lastError": {
+          "type": "cds.LargeString"
+        },
+        "lastAttemptTimestamp": {
+          "type": "cds.Timestamp"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 23
+        },
+        "task": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "appid": {
+          "type": "cds.String",
+          "length": 255
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v6.7.3",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

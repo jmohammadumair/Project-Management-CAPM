@@ -1,0 +1,27 @@
+aStarting CAP Project Generator...
+Using @sap/cds-dk [9.7.1] from C:\Users\PVARMA\AppData\Roaming\npm\node_modules\@sap\cds-dk
+Using @sap/generator-cap-project [2.0.5] from [C:\Users\PVARMA\AppData\Roaming\npm\node_modules\@sap\generator-cap-project]
+Using root path [c:\Users\PVARMA\Vs code main\new project management\new_project_management\capm]
+
+Creating project with nodejs
+
+Adding facet: nodejs
+
+Successfully initialized CAP project
+Continue with: code project_management_capm 
+
+
+Installing dependencies...
+
+added 109 packages, and audited 110 packages in 21s
+
+32 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+Finished installing dependencies
+
+Done setting up project project_management_capm
+Project is ready to use
+

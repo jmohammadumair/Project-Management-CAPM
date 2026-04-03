@@ -1,0 +1,6 @@
+ID,name,type,salary,officeCost,overheadCost,hourlyRate
+R001,Alice Johnson,Full Time,120000,15000,25000,
+R002,Bob Singh,Full Time,105000,12000,22000,
+R003,Carla Mendes,Contract,0,0,0,
+R004,David Lee,Full Time,95000,10000,20000,
+R005,Eva Müller,Contract,0,0,0,

@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "@sap/cds": "9.7.1",
+    "@cap-js/postgres": "2.1.3"
+  },
+  "scripts": {
+    "start": "cds-deploy"
+  },
+  "cds": {
+    "features": {
+      "assert_integrity": false
+    },
+    "requires": {
+      "db": {
+        "impl": "@cap-js/postgres",
+        "kind": "postgres",
+        "dialect": "postgres",
+        "vcap": {
+          "label": "postgresql-db"
+        },
+        "pool": {
+          "min": 0,
+          "max": 5,
+          "testOnBorrow": true,
+          "acquireTimeoutMillis": 30000,
+          "destroyTimeoutMillis": 1000
+        },
+        "schema_evolution": "auto"
+      }
+    }
+  }
+}

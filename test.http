@@ -1,0 +1,89 @@
+###   Variables (adjust base URL if your server runs elsewhere)
+@baseUrl = http://localhost:4004
+@browse = {{baseUrl}}/browse
+
+### --- Metadata (optional: verify service is up) ---
+GET {{browse}}/$metadata
+
+### ========== PROJECTS (CRUD) ==========
+
+### READ - List all Projects
+GET {{browse}}/Projects
+
+### READ - Single Project by key
+GET {{browse}}/Projects('P001')
+
+### CREATE - New Project (use a new ID if P006 already exists)
+POST {{browse}}/Projects
+Content-Type: application/json
+
+{
+  "ID": "P006",
+  "name": "Test Project from test.http",
+  "budget": 95000,
+  "startDate": "2026-06-01",
+  "endDate": "2026-11-30"
+}
+
+### UPDATE - Patch existing Project
+PATCH {{browse}}/Projects('P006')
+Content-Type: application/json
+
+{
+  "name": "Test Project (Updated)",
+  "budget": 100000
+}
+
+### DELETE - Remove test project (run after CREATE/UPDATE tests)
+DELETE {{browse}}/Projects('P006')
+
+### ========== RESOURCES (CRUD) ==========
+
+### READ - List all Resources
+GET {{browse}}/Resources
+
+### CREATE - New Resource (hourlyRate is auto-calculated in project-manager-service.js)
+POST {{browse}}/Resources
+Content-Type: application/json
+
+{
+  "ID": "R999",
+  "name": "Test Resource",
+  "type": "Full Time",
+  "salary": 80000,
+  "officeCost": 5000,
+  "overheadCost": 12000
+}
+
+### READ - Single Resource
+GET {{browse}}/Resources('R999')
+
+### UPDATE - Patch Resource
+PATCH {{browse}}/Resources('R999')
+Content-Type: application/json
+
+{
+  "name": "Test Resource (Updated)"
+}
+
+### DELETE - Remove test resource
+DELETE {{browse}}/Resources('R999')
+
+### ========== ALLOCATIONS (CRUD) ==========
+
+### READ - List Allocations
+GET {{browse}}/Allocations
+
+### CREATE - New Allocation (requires valid project_ID and resource_ID from your DB)
+POST {{browse}}/Allocations
+Content-Type: application/json
+
+{
+  "project_ID": "P001",
+  "resource_ID": "R001",
+  "role": "Developer",
+  "hours": 40
+}
+
+### ========== ANALYTICS VIEW (read-only) ==========
+GET {{browse}}/Analytics_Cost_Consumption
