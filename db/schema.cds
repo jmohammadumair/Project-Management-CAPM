@@ -115,7 +115,7 @@ entity WorkLogs {
     hours               : Decimal(5,2);
     isBillable          : Boolean default true;
     nonBillableType     : String(50);  // Training Given, Training Taken, Internal Meeting, Administrative Work
-    description         : String(500);
+    description         : String(500);    
 }
 
 // 6. E-Diary View — read-only reporting (joins WorkLogs + WBS + Projects + Resources)
@@ -133,7 +133,8 @@ entity EDiaryView as select from WorkLogs {
     WorkLogs.wbs.name            as taskName,
     WorkLogs.wbs.phaseName       as phaseName,
     WorkLogs.wbs.project.ID      as projectId,
-    WorkLogs.wbs.project.name    as projectName
+    WorkLogs.wbs.project.name    as projectName,
+    WorkLogs.ticket.ticketNo     as ticketNo
 };
 
 // 7. Tickets Allocation

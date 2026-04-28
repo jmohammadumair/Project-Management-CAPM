@@ -58,6 +58,7 @@
         <EntitySet Name="WorkLogs" EntityType="ProjectManagerService.WorkLogs">
           <NavigationPropertyBinding Path="employee" Target="Resources"/>
           <NavigationPropertyBinding Path="wbs" Target="WBSTasks"/>
+          <NavigationPropertyBinding Path="ticket" Target="Tickets"/>
         </EntitySet>
         <EntitySet Name="EDiaryView" EntityType="ProjectManagerService.EDiaryView"/>
         <EntitySet Name="Tickets" EntityType="ProjectManagerService.Tickets">
@@ -227,6 +228,10 @@
           <ReferentialConstraint Property="wbs_ID" ReferencedProperty="ID"/>
         </NavigationProperty>
         <Property Name="wbs_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="ticket" Type="ProjectManagerService.Tickets">
+          <ReferentialConstraint Property="ticket_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="ticket_ID" Type="Edm.Guid"/>
         <Property Name="date" Type="Edm.Date"/>
         <Property Name="hours" Type="Edm.Decimal" Precision="5" Scale="2"/>
         <Property Name="isBillable" Type="Edm.Boolean" DefaultValue="true"/>
@@ -250,6 +255,7 @@
         <Property Name="phaseName" Type="Edm.String" MaxLength="100"/>
         <Property Name="projectId" Type="Edm.String" MaxLength="10"/>
         <Property Name="projectName" Type="Edm.String" MaxLength="100"/>
+        <Property Name="ticketNo" Type="Edm.String" MaxLength="50"/>
       </EntityType>
       <EntityType Name="Tickets">
         <Key>
@@ -269,6 +275,8 @@
         <Property Name="ticketNo" Type="Edm.String" MaxLength="50"/>
         <Property Name="description" Type="Edm.String" MaxLength="500"/>
         <Property Name="priority" Type="Edm.String" MaxLength="20" DefaultValue="Medium"/>
+        <Property Name="hours" Type="Edm.Int32"/>
+        <Property Name="status" Type="Edm.String" MaxLength="20" DefaultValue="Not Started"/>
         <NavigationProperty Name="resource" Type="ProjectManagerService.Resources">
           <ReferentialConstraint Property="resource_ID" ReferencedProperty="ID"/>
         </NavigationProperty>

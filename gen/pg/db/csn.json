@@ -517,6 +517,17 @@
             }
           ]
         },
+        "ticket": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Tickets",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
         "date": {
           "type": "cds.Date"
         },
@@ -652,6 +663,14 @@
                 "name"
               ],
               "as": "projectName"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "ticket",
+                "ticketNo"
+              ],
+              "as": "ticketNo"
             }
           ]
         }
@@ -709,6 +728,10 @@
         "projectName": {
           "type": "cds.String",
           "length": 100
+        },
+        "ticketNo": {
+          "type": "cds.String",
+          "length": 50
         }
       }
     },
@@ -761,6 +784,16 @@
           "length": 20,
           "default": {
             "val": "Medium"
+          }
+        },
+        "hours": {
+          "type": "cds.Integer"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Not Started"
           }
         },
         "resource": {
@@ -1439,6 +1472,17 @@
             }
           ]
         },
+        "ticket": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Tickets",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
         "date": {
           "type": "cds.Date"
         },
@@ -1526,6 +1570,10 @@
         "projectName": {
           "type": "cds.String",
           "length": 100
+        },
+        "ticketNo": {
+          "type": "cds.String",
+          "length": 50
         }
       }
     },
@@ -1585,6 +1633,16 @@
           "length": 20,
           "default": {
             "val": "Medium"
+          }
+        },
+        "hours": {
+          "type": "cds.Integer"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Not Started"
           }
         },
         "resource": {
