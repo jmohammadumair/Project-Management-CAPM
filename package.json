@@ -26,6 +26,7 @@
       "requires": {
         "db": {
           "kind": "postgres",
+          "schema_evolution": "force",
           "pool": {
             "max": 5,
             "acquireTimeoutMillis": 30000
@@ -38,5 +39,3 @@
     }
   }
 }
-
-

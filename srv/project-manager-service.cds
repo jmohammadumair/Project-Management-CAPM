@@ -31,4 +31,14 @@ service ProjectManagerService {
     
     // WBS Tasks for a specific project
     entity WBSTasks as projection on db.WBSTasks;
+
+    // WorkLogs for daily work logging (replaces Timesheets)
+    entity WorkLogs as projection on db.WorkLogs;
+
+    // Read-only E-Diary reporting view
+    @readonly
+    entity EDiaryView as projection on db.EDiaryView;
+
+    // Tickets Allocation
+    entity Tickets as projection on db.Tickets;
 }

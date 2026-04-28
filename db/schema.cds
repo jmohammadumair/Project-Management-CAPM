@@ -88,7 +88,66 @@ entity WBSTasks {
     hours           : Integer;
     startDate       : Date;
     endDate         : Date;
-    status          : String(20) default 'Not Started'; // Added: For tracking progress (e.g. 'In Progress', 'Done')
-    sequence        : Integer; // Added: To keep WBS rows in the exact order the user wants
-    predecessor     : Association to WBSTasks; // Excellent approach for dependencies
+    status          : String(20) default 'Not Started';
+    sequence        : Integer;
+    predecessor     : Association to WBSTasks;
+    reallocatedTo   : Association to Resources;
+}
+
+// 5. [Legacy] Timesheets — kept temporarily to prevent DB deployment table drop errors
+entity Timesheets {
+    key ID          : UUID;
+    employee        : Association to Resources;
+    wbs             : Association to WBSTasks;
+    date            : Date;
+    hours           : Decimal(5,2);
+    notes           : String(500);
+    status          : String(20) default 'Draft';
+}
+
+// 5. WorkLogs — daily work log entries (created from Employee tab)
+entity WorkLogs {
+    key ID              : UUID;
+    employee            : Association to Resources;
+    wbs                 : Association to WBSTasks;
+    ticket              : Association to Tickets;  // optional — set for ticket-based logs
+    date                : Date;
+    hours               : Decimal(5,2);
+    isBillable          : Boolean default true;
+    nonBillableType     : String(50);  // Training Given, Training Taken, Internal Meeting, Administrative Work
+    description         : String(500);
+}
+
+// 6. E-Diary View — read-only reporting (joins WorkLogs + WBS + Projects + Resources)
+@cds.persistence.exists: false
+entity EDiaryView as select from WorkLogs {
+    key WorkLogs.ID              as ID,
+    WorkLogs.date                as date,
+    WorkLogs.hours               as hours,
+    WorkLogs.isBillable          as isBillable,
+    WorkLogs.nonBillableType     as nonBillableType,
+    WorkLogs.description         as description,
+    WorkLogs.employee.ID         as employeeId,
+    WorkLogs.employee.name       as employeeName,
+    WorkLogs.wbs.ID              as wbsId,
+    WorkLogs.wbs.name            as taskName,
+    WorkLogs.wbs.phaseName       as phaseName,
+    WorkLogs.wbs.project.ID      as projectId,
+    WorkLogs.wbs.project.name    as projectName
+};
+
+// 7. Tickets Allocation
+entity Tickets {
+    key ID              : UUID;
+    project             : Association to Projects;
+    date                : Date;
+    module              : String(50);
+    role                : Association to ResourceRoles;
+    ticketNo            : String(50);
+    description         : String(500);
+    priority            : String(20) default 'Medium';  // Low | Medium | High
+    hours               : Integer;                      // Planned hours
+    status              : String(20) default 'Not Started'; // Not Started | Working | Paused | Completed
+    resource            : Association to Resources;
+    onBehalfOf          : Association to Resources;
 }

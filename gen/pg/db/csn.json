@@ -424,6 +424,366 @@
               ]
             }
           ]
+        },
+        "reallocatedTo": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "my.projectmanager.Timesheets": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "wbs": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.WBSTasks",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "date": {
+          "type": "cds.Date"
+        },
+        "hours": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "notes": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Draft"
+          }
+        }
+      }
+    },
+    "my.projectmanager.WorkLogs": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "wbs": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.WBSTasks",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "date": {
+          "type": "cds.Date"
+        },
+        "hours": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "isBillable": {
+          "type": "cds.Boolean",
+          "default": {
+            "val": true
+          }
+        },
+        "nonBillableType": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 500
+        }
+      }
+    },
+    "my.projectmanager.EDiaryView": {
+      "kind": "entity",
+      "@cds.persistence.exists": false,
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "my.projectmanager.WorkLogs"
+            ]
+          },
+          "columns": [
+            {
+              "key": true,
+              "ref": [
+                "WorkLogs",
+                "ID"
+              ],
+              "as": "ID"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "date"
+              ],
+              "as": "date"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "hours"
+              ],
+              "as": "hours"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "isBillable"
+              ],
+              "as": "isBillable"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "nonBillableType"
+              ],
+              "as": "nonBillableType"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "description"
+              ],
+              "as": "description"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "employee",
+                "ID"
+              ],
+              "as": "employeeId"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "employee",
+                "name"
+              ],
+              "as": "employeeName"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "wbs",
+                "ID"
+              ],
+              "as": "wbsId"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "wbs",
+                "name"
+              ],
+              "as": "taskName"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "wbs",
+                "phaseName"
+              ],
+              "as": "phaseName"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "wbs",
+                "project",
+                "ID"
+              ],
+              "as": "projectId"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "wbs",
+                "project",
+                "name"
+              ],
+              "as": "projectName"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "date": {
+          "type": "cds.Date"
+        },
+        "hours": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "isBillable": {
+          "type": "cds.Boolean",
+          "default": {
+            "val": true
+          }
+        },
+        "nonBillableType": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "employeeId": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "employeeName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "wbsId": {
+          "type": "cds.UUID"
+        },
+        "taskName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "phaseName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "projectId": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "projectName": {
+          "type": "cds.String",
+          "length": 100
+        }
+      }
+    },
+    "my.projectmanager.Tickets": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "date": {
+          "type": "cds.Date"
+        },
+        "module": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "role": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.ResourceRoles",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "ticketNo": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "priority": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Medium"
+          }
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "onBehalfOf": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
         }
       }
     },
@@ -1022,6 +1382,225 @@
         "predecessor": {
           "type": "cds.Association",
           "target": "ProjectManagerService.WBSTasks",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "reallocatedTo": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProjectManagerService.WorkLogs": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.WorkLogs"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "wbs": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.WBSTasks",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "date": {
+          "type": "cds.Date"
+        },
+        "hours": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "isBillable": {
+          "type": "cds.Boolean",
+          "default": {
+            "val": true
+          }
+        },
+        "nonBillableType": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 500
+        }
+      }
+    },
+    "ProjectManagerService.EDiaryView": {
+      "kind": "entity",
+      "@readonly": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.EDiaryView"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "date": {
+          "type": "cds.Date"
+        },
+        "hours": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "isBillable": {
+          "type": "cds.Boolean",
+          "default": {
+            "val": true
+          }
+        },
+        "nonBillableType": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "employeeId": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "employeeName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "wbsId": {
+          "type": "cds.UUID"
+        },
+        "taskName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "phaseName": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "projectId": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "projectName": {
+          "type": "cds.String",
+          "length": 100
+        }
+      }
+    },
+    "ProjectManagerService.Tickets": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.Tickets"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "date": {
+          "type": "cds.Date"
+        },
+        "module": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "role": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.ResourceRoles",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "ticketNo": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "priority": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Medium"
+          }
+        },
+        "resource": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Resources",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "onBehalfOf": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Resources",
           "keys": [
             {
               "ref": [

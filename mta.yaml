@@ -1,5 +1,3 @@
-
-
 _schema-version: 3.3.0
 ID: project_management_capm
 version: 1.0.0
@@ -7,11 +5,11 @@ description: "A simple CAP project."
 parameters:
   enable-parallel-deployments: true
 build-parameters:
- before-all:
-  - builder: custom
-    commands:
-      - npm ci
-      - npx cds build --production
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
 modules:
   - name: project_management_capm-srv
     type: nodejs
@@ -24,12 +22,12 @@ modules:
     build-parameters:
       builder: npm-ci
     provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+      - name: srv-api
         properties:
           srv-url: ${default-url}
     requires:
       - name: project_management_capm-postgres
- 
+
   - name: project_management_capm-postgres-deployer
     type: nodejs
     path: gen/pg
@@ -39,12 +37,12 @@ modules:
       no-start: true
       tasks:
         - name: deploy-to-postgresql
-          command: npm start
+          command: npm start -- --auto-undeploy
     requires:
       - name: project_management_capm-postgres
- 
+
 resources:
   - name: project_management_capm-postgres
     type: org.cloudfoundry.existing-service
     parameters:
-      service-name: PGSQL_INS
+      service-name: PG

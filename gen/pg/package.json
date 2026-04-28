@@ -25,7 +25,7 @@
           "acquireTimeoutMillis": 30000,
           "destroyTimeoutMillis": 1000
         },
-        "schema_evolution": "auto"
+        "schema_evolution": "force"
       }
     }
   }
