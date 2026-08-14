@@ -668,9 +668,25 @@
               "ref": [
                 "WorkLogs",
                 "ticket",
+                "ID"
+              ],
+              "as": "ticketId"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "ticket",
                 "ticketNo"
               ],
               "as": "ticketNo"
+            },
+            {
+              "ref": [
+                "WorkLogs",
+                "ticket",
+                "description"
+              ],
+              "as": "ticketDescription"
             }
           ]
         }
@@ -729,9 +745,16 @@
           "type": "cds.String",
           "length": 100
         },
+        "ticketId": {
+          "type": "cds.UUID"
+        },
         "ticketNo": {
           "type": "cds.String",
           "length": 50
+        },
+        "ticketDescription": {
+          "type": "cds.String",
+          "length": 500
         }
       }
     },
@@ -1571,9 +1594,16 @@
           "type": "cds.String",
           "length": 100
         },
+        "ticketId": {
+          "type": "cds.UUID"
+        },
         "ticketNo": {
           "type": "cds.String",
           "length": 50
+        },
+        "ticketDescription": {
+          "type": "cds.String",
+          "length": 500
         }
       }
     },

@@ -255,7 +255,9 @@
         <Property Name="phaseName" Type="Edm.String" MaxLength="100"/>
         <Property Name="projectId" Type="Edm.String" MaxLength="10"/>
         <Property Name="projectName" Type="Edm.String" MaxLength="100"/>
+        <Property Name="ticketId" Type="Edm.Guid"/>
         <Property Name="ticketNo" Type="Edm.String" MaxLength="50"/>
+        <Property Name="ticketDescription" Type="Edm.String" MaxLength="500"/>
       </EntityType>
       <EntityType Name="Tickets">
         <Key>

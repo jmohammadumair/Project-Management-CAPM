@@ -16,6 +16,7 @@
     "@ui5/cli": "^4.0.33"
   },
   "scripts": {
+    "start": "fiori run --open 'index.html'",
     "deploy-config": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf"
   }
 }

@@ -134,7 +134,9 @@ entity EDiaryView as select from WorkLogs {
     WorkLogs.wbs.phaseName       as phaseName,
     WorkLogs.wbs.project.ID      as projectId,
     WorkLogs.wbs.project.name    as projectName,
-    WorkLogs.ticket.ticketNo     as ticketNo
+    WorkLogs.ticket.ID           as ticketId,
+    WorkLogs.ticket.ticketNo     as ticketNo,
+    WorkLogs.ticket.description  as ticketDescription
 };
 
 // 7. Tickets Allocation

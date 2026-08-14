@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.20.2",
-      "toolsId": "55d463e1-11b4-41dc-86a5-7d4ec3fb79eb"
+      "toolsId": "d0b3b74c-fd8d-4c63-adaa-31a9acb8917e"
     },
     "dataSources": {
       "mainService": {
@@ -21,6 +21,7 @@
         "type": "OData",
         "settings": {
           "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "4.0"
         }
       }
