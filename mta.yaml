@@ -45,4 +45,4 @@ resources:
   - name: project_management_capm-postgres
     type: org.cloudfoundry.existing-service
     parameters:
-      service-name: PG
+      service-name: pg
