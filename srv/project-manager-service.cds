@@ -45,4 +45,7 @@ service ProjectManagerService {
     // Ticket Templates — reusable per-project ticket module definitions
     entity TicketTemplates as projection on db.TicketTemplates;
     entity TicketTemplateItems as projection on db.TicketTemplateItems;
+
+    // Ticket Import Templates — per-project remembered Excel/CSV header mapping
+    entity TicketImportTemplates as projection on db.TicketImportTemplates;
 }

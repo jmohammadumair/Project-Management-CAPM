@@ -177,3 +177,22 @@ entity TicketTemplateItems {
     descriptionTemplate     : String(500);
     sequence                : Integer;
 }
+
+// 9. Ticket Import Templates — one per project, remembers the exact Excel/CSV
+// column header text that was resolved (via fuzzy matching) for each ticket
+// field the first time a project's import format was "set". Later imports for
+// that project match against these exact saved headers only; any field whose
+// saved header isn't found in a later file is left empty rather than guessed.
+entity TicketImportTemplates {
+    key ID              : UUID;
+    project             : Association to Projects;
+    dateHeader          : String(100);
+    moduleHeader        : String(100);
+    ticketNoHeader      : String(100);
+    descriptionHeader   : String(100);
+    resourceHeader      : String(100);
+    onBehalfOfHeader    : String(100);
+    hoursHeader         : String(100);
+    priorityHeader      : String(100);
+    statusHeader        : String(100);
+}
