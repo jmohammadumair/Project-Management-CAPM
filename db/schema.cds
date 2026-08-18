@@ -13,6 +13,9 @@ entity Projects {
     
     // Navigational association to track actual allocations
     allocations     : Association to many Allocations on allocations.project = $self;
+
+    // Optional link to a reusable Ticket Template (defines this project's valid ticket modules)
+    ticketTemplate  : Association to TicketTemplates;
 }
 
 // Child entity for Project Required Roles
@@ -153,4 +156,24 @@ entity Tickets {
     status              : String(20) default 'Not Started'; // Not Started | Working | Paused | Completed
     resource            : Association to Resources;
     onBehalfOf          : Association to Resources;
+}
+
+// 8. Ticket Templates — reusable, per-project sets of valid ticket modules.
+// Multiple Projects may each independently reference the same or a different
+// TicketTemplates row via Projects.ticketTemplate (see above); a template is
+// not owned by a single project.
+entity TicketTemplates {
+    key ID              : UUID;
+    name                : String(100);
+    items               : Composition of many TicketTemplateItems on items.template = $self;
+}
+
+entity TicketTemplateItems {
+    key ID                  : UUID;
+    template                : Association to TicketTemplates;
+    module                  : String(50);
+    defaultPriority         : String(20) default 'Medium'; // Low | Medium | High
+    defaultHours            : Integer;
+    descriptionTemplate     : String(500);
+    sequence                : Integer;
 }

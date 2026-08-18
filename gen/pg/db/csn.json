@@ -65,6 +65,17 @@
               ]
             }
           ]
+        },
+        "ticketTemplate": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.TicketTemplates",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
         }
       }
     },
@@ -843,6 +854,81 @@
         }
       }
     },
+    "my.projectmanager.TicketTemplates": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "items": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.projectmanager.TicketTemplateItems",
+          "on": [
+            {
+              "ref": [
+                "items",
+                "template"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "my.projectmanager.TicketTemplateItems": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "template": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.TicketTemplates",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "module": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "defaultPriority": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Medium"
+          }
+        },
+        "defaultHours": {
+          "type": "cds.Integer"
+        },
+        "descriptionTemplate": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "sequence": {
+          "type": "cds.Integer"
+        }
+      }
+    },
     "ProjectManagerService": {
       "@source": "srv/project-manager-service.cds",
       "kind": "service",
@@ -916,6 +1002,17 @@
             {
               "ref": [
                 "$self"
+              ]
+            }
+          ]
+        },
+        "ticketTemplate": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.TicketTemplates",
+          "keys": [
+            {
+              "ref": [
+                "ID"
               ]
             }
           ]
@@ -1696,6 +1793,95 @@
               ]
             }
           ]
+        }
+      }
+    },
+    "ProjectManagerService.TicketTemplates": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.TicketTemplates"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "name": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "items": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ProjectManagerService.TicketTemplateItems",
+          "on": [
+            {
+              "ref": [
+                "items",
+                "template"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProjectManagerService.TicketTemplateItems": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.TicketTemplateItems"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "template": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.TicketTemplates",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "module": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "defaultPriority": {
+          "type": "cds.String",
+          "length": 20,
+          "default": {
+            "val": "Medium"
+          }
+        },
+        "defaultHours": {
+          "type": "cds.Integer"
+        },
+        "descriptionTemplate": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "sequence": {
+          "type": "cds.Integer"
         }
       }
     },

@@ -41,4 +41,8 @@ service ProjectManagerService {
 
     // Tickets Allocation
     entity Tickets as projection on db.Tickets;
+
+    // Ticket Templates — reusable per-project ticket module definitions
+    entity TicketTemplates as projection on db.TicketTemplates;
+    entity TicketTemplateItems as projection on db.TicketTemplateItems;
 }
