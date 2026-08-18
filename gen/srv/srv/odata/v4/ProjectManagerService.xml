@@ -74,6 +74,9 @@
         <EntitySet Name="TicketTemplateItems" EntityType="ProjectManagerService.TicketTemplateItems">
           <NavigationPropertyBinding Path="template" Target="TicketTemplates"/>
         </EntitySet>
+        <EntitySet Name="TicketImportTemplates" EntityType="ProjectManagerService.TicketImportTemplates">
+          <NavigationPropertyBinding Path="project" Target="Projects"/>
+        </EntitySet>
       </EntityContainer>
       <EntityType Name="Projects">
         <Key>
@@ -324,6 +327,25 @@
         <Property Name="descriptionTemplate" Type="Edm.String" MaxLength="500"/>
         <Property Name="sequence" Type="Edm.Int32"/>
       </EntityType>
+      <EntityType Name="TicketImportTemplates">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="project" Type="ProjectManagerService.Projects">
+          <ReferentialConstraint Property="project_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="project_ID" Type="Edm.String" MaxLength="10"/>
+        <Property Name="dateHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="moduleHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="ticketNoHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="descriptionHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="resourceHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="onBehalfOfHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="hoursHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="priorityHeader" Type="Edm.String" MaxLength="100"/>
+        <Property Name="statusHeader" Type="Edm.String" MaxLength="100"/>
+      </EntityType>
       <Annotations Target="ProjectManagerService.Allocations/ID">
         <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
       </Annotations>
@@ -392,6 +414,9 @@
         <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
       </Annotations>
       <Annotations Target="ProjectManagerService.TicketTemplateItems/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="ProjectManagerService.TicketImportTemplates/ID">
         <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
       </Annotations>
     </Schema>

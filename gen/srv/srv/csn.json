@@ -929,6 +929,62 @@
         }
       }
     },
+    "my.projectmanager.TicketImportTemplates": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "my.projectmanager.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "dateHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "moduleHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "ticketNoHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "descriptionHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "resourceHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "onBehalfOfHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "hoursHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "priorityHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "statusHeader": {
+          "type": "cds.String",
+          "length": 100
+        }
+      }
+    },
     "ProjectManagerService": {
       "@source": "srv/project-manager-service.cds",
       "kind": "service",
@@ -1882,6 +1938,69 @@
         },
         "sequence": {
           "type": "cds.Integer"
+        }
+      }
+    },
+    "ProjectManagerService.TicketImportTemplates": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.projectmanager.TicketImportTemplates"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "ProjectManagerService.Projects",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "dateHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "moduleHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "ticketNoHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "descriptionHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "resourceHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "onBehalfOfHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "hoursHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "priorityHeader": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "statusHeader": {
+          "type": "cds.String",
+          "length": 100
         }
       }
     },
